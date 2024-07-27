@@ -119,7 +119,8 @@ export default function Game() {
 
     return (
         <div className='flex flex-col justify-center h-screen bg-black'>
-            <h1 className='text-gray-50 text-center'>PALABRON</h1>
+            <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRON</h1>
+            <span className='text-gray-50 text-center text-xs'>(pre-alpha)</span>
             <div className='py-1'>
                 <Guesses guesses={guesses} currentGuess={currentGuess} />
             </div>
