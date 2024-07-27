@@ -1,17 +1,17 @@
 import React from 'react'
+import Guesses from './Guesses';
 import Keyboard from './Keyboard';
 import { dictionary } from '../data';
+import { GREY, GREEN, YELLOW } from '../constants';
 import type { GameState, Guess } from '../types';
 // Today new Date().toJSON().split('T')[0]
-const GREY = 'grey'
-const GREEN = 'green'
-const YELLOW = 'yellow'
 export default function Game() {
     const [wordOfTheDay, setWordOfTheDay] = React.useState('sueño');
     const [currentGuess, setCurrentGuess] = React.useState<string[]>([]);
     const [today, setToday] = React.useState(new Date().toJSON().split('T')[0]);
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
     const [guessedLetters, setGuessedLetters] = React.useState({})
+    const [gameOver, setGameOver] = React.useState(false);
 
     React.useEffect(() => {
 
@@ -53,7 +53,8 @@ export default function Game() {
                         "r": "grey",
                         "í": "grey",
                         "s": "yellow" - just track letters that are grey
-                    }
+                    },
+                    "gameOver": false
                 }
             */
             const { wordOfTheDay, guesses, guessedLetters } = result[today];
@@ -64,13 +65,15 @@ export default function Game() {
     }, []);
 
     const onTap = (letter: string) => {
+        if (gameOver) return;
         setCurrentGuess([...currentGuess, letter]);
     }
 
     const onEnter = () => {
+        if (gameOver) return;
         const guessedWord = currentGuess.join('');
         // check dic
-        if (!(guessedWord in dictionary)) {
+        if (!(guessedWord in dictionary) || guessedWord.length < 5) {
             // toggle toast?
             return;
         }
@@ -98,7 +101,9 @@ export default function Game() {
         setGuesses([...guesses, { guess: guessedWord, letters: lettersGuessed }])
         if (allGreen || finalGuess) {
             // end game
+            setGameOver(true)
         }
+        setCurrentGuess([])
     }
 
     const onDelete = () =>
@@ -107,6 +112,9 @@ export default function Game() {
     return (
         <div className='flex flex-col justify-center h-screen bg-black'>
             <h1 className='text-gray-950'>Hello World</h1>
+            <div className='py-1'>
+                <Guesses guesses={guesses} currentGuess={currentGuess} />
+            </div>
             <div className='flex justify-center min-w-full'>
                 <Keyboard
                     guessedLetters={guessedLetters}
