@@ -69,9 +69,44 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
             </div>
         ))
     }, [guesses])
+
+    if (guesses.length === 6) {
+        return (
+            <section className='flex flex-col py-2 gap-1'>
+                {guessesToRender}
+            </section>
+        )
+    }
     return (
         <section className='flex flex-col py-2 gap-1'>
             {guessesToRender}
+            <div className='flex flex-row justify-center gap-1'>
+                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-1'>
+                    <span className='text-white'>
+                        {currentGuess[0] || ''}
+                    </span>
+                </div>
+                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-2'>
+                    <span className='text-white'>
+                        {currentGuess[1] || ''}
+                    </span>
+                </div>
+                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-3'>
+                    <span className='text-white'>
+                        {currentGuess[2] || ''}
+                    </span>
+                </div>
+                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-4'>
+                    <span className='text-white'>
+                        {currentGuess[3] || ''}
+                    </span>
+                </div>
+                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-5'>
+                    <span className='text-white'>
+                        {currentGuess[4] || ''}
+                    </span>
+                </div>
+            </div>
             {blanksToRender}
         </section>
     )
