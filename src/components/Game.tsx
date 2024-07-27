@@ -80,8 +80,9 @@ export default function Game() {
         let allGreen = true;
         let i = 0;
         const lettersGuessed = [];
+        const greyMap: { [key: string]: string } = {}
+        const yellowMap: { [key: string]: string } = {}
         while (i < 5) {
-            i++;
             const g = currentGuess[i];
             const w = wordOfTheDay[i];
             const currGuess = {
@@ -92,14 +93,20 @@ export default function Game() {
                 currGuess.status = GREEN
             } else if (wordOfTheDay.includes(g)) {
                 currGuess.status = YELLOW
+                yellowMap[g] = YELLOW
+            } else {
+                greyMap[g] = GREY
             }
             if (allGreen && (currGuess.status === GREY || currGuess.status === YELLOW)) {
                 allGreen = false;
             }
             lettersGuessed.push(currGuess)
+            i++;
         }
         const finalGuess = guesses.length >= 5;
+        setGuessedLetters(Object.assign(guessedLetters, greyMap, yellowMap))
         setGuesses([...guesses, { guess: guessedWord, letters: lettersGuessed }])
+
         if (allGreen || finalGuess) {
             // end game
             setGameOver(true)
