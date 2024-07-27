@@ -6,11 +6,11 @@ import type { Guess, LetterGuess, } from '../types';
 function Blank(key: number) {
     return (
         <div className='flex flex-row justify-center gap-1' key={`blank-${key}`}>
-            <div className='border-2 border-slate-500 w-10 h-10' />
-            <div className='border-2 border-slate-500 w-10 h-10' />
-            <div className='border-2 border-slate-500 w-10 h-10' />
-            <div className='border-2 border-slate-500 w-10 h-10' />
-            <div className='border-2 border-slate-500 w-10 h-10' />
+            <div className='border-2 border-slate-700 w-10 h-10' />
+            <div className='border-2 border-slate-700 w-10 h-10' />
+            <div className='border-2 border-slate-700 w-10 h-10' />
+            <div className='border-2 border-slate-700 w-10 h-10' />
+            <div className='border-2 border-slate-700 w-10 h-10' />
         </div>
     )
 }
@@ -81,27 +81,27 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
         <section className='flex flex-col py-2 gap-1'>
             {guessesToRender}
             <div className='flex flex-row justify-center gap-1'>
-                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-1'>
+                <div className={currentGuess[0] ? 'grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' : 'grid place-items-center border-2 border-slate-700 w-10 h-10 bg-black'} key='cg-l-1'>
                     <span className='text-white'>
                         {currentGuess[0] || ''}
                     </span>
                 </div>
-                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-2'>
+                <div className={currentGuess[1] ? 'grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' : 'grid place-items-center border-2 border-slate-700 w-10 h-10 bg-black'} key='cg-l-2'>
                     <span className='text-white'>
                         {currentGuess[1] || ''}
                     </span>
                 </div>
-                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-3'>
+                <div className={currentGuess[2] ? 'grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' : 'grid place-items-center border-2 border-slate-700 w-10 h-10 bg-black'} key='cg-l-3'>
                     <span className='text-white'>
                         {currentGuess[2] || ''}
                     </span>
                 </div>
-                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-4'>
+                <div className={currentGuess[3] ? 'grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' : 'grid place-items-center border-2 border-slate-700 w-10 h-10 bg-black'} key='cg-l-4'>
                     <span className='text-white'>
                         {currentGuess[3] || ''}
                     </span>
                 </div>
-                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-5'>
+                <div className={currentGuess[4] ? 'grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' : 'grid place-items-center border-2 border-slate-700 w-10 h-10 bg-black'} key='cg-l-5'>
                     <span className='text-white'>
                         {currentGuess[4] || ''}
                     </span>
@@ -111,22 +111,3 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
         </section>
     )
 }
-
-
-// {
-//     guesses.map((guess) => (
-//         <div className='grid grid-cols-5 gap-1'>
-//             {guess.letters.map((guess) => (
-//                 <div
-//                     className={
-//                         guess.status === 'grey' ? 'bg-gray-700 text-gray-50 w-7 h-9 p-1 rounded-sm'
-//                             : guess.status === 'yellow' ? 'bg-yellow text-black w-7 h-9 p-1 rounded-sm'
-//                                 : 'bg-gray-50 text-gray-700 w-7 h-9 p-1 rounded-sm'
-//                     }
-//                 >
-//                     <span>{guess.letter}</span>
-//                 </div>
-//             ))}
-//         </div>
-//     ))
-// }
