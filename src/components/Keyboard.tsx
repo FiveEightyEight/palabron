@@ -29,35 +29,38 @@ type KeyboardProps = {
 }
 export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
     const accents = ['á', 'é', 'í', 'ó', 'ú', 'ü'];
-    const firstRow = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']
+    const topRow = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']
     const middleRow = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ']
     const lastRow = ['z', 'x', 'c', 'v', 'b', 'n', 'm']
     return (
         <section className='grid grid-rows-4 grid-cols-1 px-1 gap-1 max-w-full'>
             <div className='flex auto-cols-max gap-2 md:gap-4 justify-center'>
-                {accents.map((letter: string) => (
+                {accents.map((letter: string, i: number) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
                         label={letter}
                         type={guessedLetters[letter]}
+                        key={`accent-k-${i}`}
                     />
                 ))}
             </div>
             <div className='grid grid-cols-10 auto-cols-max md:gap-2 justify-center content-center'>
-                {firstRow.map((letter: string) => (
+                {topRow.map((letter: string, i: number) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
                         label={letter}
                         type={guessedLetters[letter]}
+                        key={`topRow-k-${i}`}
                     />
                 ))}
             </div>
             <div className='grid grid-cols-10 auto-cols-max md:gap-2 justify-center content-center'>
-                {middleRow.map((letter: string) => (
+                {middleRow.map((letter: string, i: number) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
                         label={letter}
                         type={guessedLetters[letter]}
+                        key={`middleRow-k-${i}`}
                     />
                 ))}
             </div>
@@ -73,11 +76,12 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
                     <span>E</span>
                 </button>
                 <div className='grid grid-cols-7 auto-cols-max gap-1 md:gap-2 justify-center content-center'>
-                    {lastRow.map((letter: string) => (
+                    {lastRow.map((letter: string, i: number) => (
                         <KeyboardButton
                             cb={() => onTap(letter)}
                             label={letter}
                             type={guessedLetters[letter]}
+                            key={`lastRow-k-${i}`}
                         />
                     ))}
                 </div>
