@@ -19,7 +19,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
     switch (status) {
         case GREEN:
             return (
-                <div className='border-2 border-slate-500 w-10 h-10 bg-green-600'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-green-600'>
                     <span className='text-white'>
                         {letter}
                     </span>
@@ -27,7 +27,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
             )
         case YELLOW:
             return (
-                <div className='border-2 border-slate-500 w-10 h-10 bg-yellow-500'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-yellow-500'>
                     <span className='text-white'>
                         {letter}
                     </span>
@@ -35,7 +35,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
             )
         default:
             return (
-                <div className='border-2 border-slate-500 w-10 h-10 bg-gray-500'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-gray-500'>
                     <span className='text-white'>
                         {letter}
                     </span>
@@ -81,27 +81,27 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
         <section className='flex flex-col py-2 gap-1'>
             {guessesToRender}
             <div className='flex flex-row justify-center gap-1'>
-                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-1'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-1'>
                     <span className='text-white'>
                         {currentGuess[0] || ''}
                     </span>
                 </div>
-                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-2'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-2'>
                     <span className='text-white'>
                         {currentGuess[1] || ''}
                     </span>
                 </div>
-                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-3'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-3'>
                     <span className='text-white'>
                         {currentGuess[2] || ''}
                     </span>
                 </div>
-                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-4'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-4'>
                     <span className='text-white'>
                         {currentGuess[3] || ''}
                     </span>
                 </div>
-                <div className='border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-5'>
+                <div className='grid place-items-center border-2 border-slate-500 w-10 h-10 bg-black' key='cg-l-5'>
                     <span className='text-white'>
                         {currentGuess[4] || ''}
                     </span>
