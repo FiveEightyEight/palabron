@@ -1,1 +1,1 @@
-export { default as data } from './dictionary';
+export { default as dictionary } from './dictionary';
