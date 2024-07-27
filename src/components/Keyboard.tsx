@@ -12,8 +12,8 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
             onMouseDown={cb}
             onTouchStart={cb}
             className={
-                type === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-7 h-7 p-1 rounded-md'
-                    : 'grid place-items-center bg-gray-50 text-gray-700 w-7 h-7 p-1 rounded-md'
+                type === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-7 h-9 p-1 rounded-sm'
+                    : 'grid place-items-center bg-gray-50 text-gray-700 w-7 h-9 p-1 rounded-sm'
             }
         >
             <span>{label}</span>
@@ -33,8 +33,8 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
     const middleRow = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ']
     const lastRow = ['z', 'x', 'c', 'v', 'b', 'n', 'm']
     return (
-        <section className='grid grid-rows-4 auto-cols-max gap-4 w-full lg:max-w-48'>
-            <div className='flex auto-cols-max  gap-4 justify-center'>
+        <section className='grid grid-rows-4 grid-cols-1 px-1 gap-1 max-w-full'>
+            <div className='flex auto-cols-max gap-2 md:gap-4 justify-center'>
                 {accents.map((letter: string) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
@@ -43,7 +43,7 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
                     />
                 ))}
             </div>
-            <div className='grid grid-cols-10 auto-cols-max gap-2 justify-center content-center'>
+            <div className='grid grid-cols-10 auto-cols-max md:gap-2 justify-center content-center'>
                 {firstRow.map((letter: string) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
@@ -52,7 +52,7 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
                     />
                 ))}
             </div>
-            <div className='grid grid-cols-10 auto-cols-max gap-2 justify-center content-center'>
+            <div className='grid grid-cols-10 auto-cols-max md:gap-2 justify-center content-center'>
                 {middleRow.map((letter: string) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
@@ -61,30 +61,32 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
                     />
                 ))}
             </div>
-            <div className='grid grid-cols-9 auto-cols-max gap-2 justify-center content-center'>
+            <div className='flex flex-row gap-1 md:gap-2 justify-center content-center'>
                 <button
                     // onMouseDown={cb}
                     // onTouchStart={cb}
                     className={
-                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-7 p-1 rounded-md'
-                            : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-7 p-1 rounded-md'
+                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-9 p-1 rounded-sm'
+                            : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-9 p-1 rounded-sm'
                     }
                 >
                     <span>E</span>
                 </button>
-                {lastRow.map((letter: string) => (
-                    <KeyboardButton
-                        cb={() => onTap(letter)}
-                        label={letter}
-                        type={guessedLetters[letter]}
-                    />
-                ))}
+                <div className='grid grid-cols-7 auto-cols-max gap-1 md:gap-2 justify-center content-center'>
+                    {lastRow.map((letter: string) => (
+                        <KeyboardButton
+                            cb={() => onTap(letter)}
+                            label={letter}
+                            type={guessedLetters[letter]}
+                        />
+                    ))}
+                </div>
                 <button
                     // onMouseDown={cb}
                     // onTouchStart={cb}
                     className={
-                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-7 p-1 rounded-md'
-                            : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-7 p-1 rounded-md'
+                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-9 p-1 rounded-sm'
+                            : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-9 p-1 rounded-sm'
                     }
                 >
                     <span>D</span>
