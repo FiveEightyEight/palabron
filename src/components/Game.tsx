@@ -61,14 +61,14 @@ export default function Game() {
     return (
         <div className='flex flex-col justify-center h-screen bg-black'>
             <h1 className='text-gray-950'>Hello World</h1>
-
-            <Keyboard
-                guessedLetters={guessedLetters}
-                onTap={(letter: string) => { }}
-                onEnter={() => { }}
-                onDelete={() => { }}
-            />
-
+            <div className='flex justify-center min-w-full'>
+                <Keyboard
+                    guessedLetters={guessedLetters}
+                    onTap={(letter: string) => { }}
+                    onEnter={() => { }}
+                    onDelete={() => { }}
+                />
+            </div>
         </div>
     )
 }
