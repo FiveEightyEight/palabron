@@ -10,7 +10,6 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
     return (
         <button
             onMouseDown={cb}
-            onTouchStart={cb}
             className={
                 type === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-7 h-9 p-1 rounded-sm'
                     : 'grid place-items-center bg-gray-50 text-gray-700 w-7 h-9 p-1 rounded-sm'
@@ -27,7 +26,7 @@ type KeyboardProps = {
     onEnter: () => void;
     onDelete: () => void;
 }
-export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
+export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: KeyboardProps) {
     const accents = ['á', 'é', 'í', 'ó', 'ú', 'ü'];
     const topRow = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']
     const middleRow = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ']
@@ -66,8 +65,7 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
             </div>
             <div className='flex flex-row gap-1 md:gap-2 justify-center content-center'>
                 <button
-                    // onMouseDown={cb}
-                    // onTouchStart={cb}
+                    onMouseDown={onEnter}
                     className={
                         'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-9 p-1 rounded-sm'
                             : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-9 p-1 rounded-sm'
@@ -86,8 +84,7 @@ export default function Keyboard({ guessedLetters, onTap }: KeyboardProps) {
                     ))}
                 </div>
                 <button
-                    // onMouseDown={cb}
-                    // onTouchStart={cb}
+                    onMouseDown={onDelete}
                     className={
                         'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-9 h-9 p-1 rounded-sm'
                             : 'grid place-items-center bg-gray-50 text-gray-700 w-9 h-9 p-1 rounded-sm'
