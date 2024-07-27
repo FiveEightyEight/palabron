@@ -12,7 +12,6 @@ export default function Game() {
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
     const [guessedLetters, setGuessedLetters] = React.useState({})
     const [gameOver, setGameOver] = React.useState(false);
-
     React.useEffect(() => {
 
         const result: null | GameState = JSON.parse(localStorage.getItem(today) || 'null');
@@ -65,7 +64,7 @@ export default function Game() {
     }, []);
 
     const onTap = (letter: string) => {
-        if (gameOver) return;
+        if (gameOver || currentGuess.length >= 5) return;
         setCurrentGuess([...currentGuess, letter]);
     }
 
@@ -75,12 +74,14 @@ export default function Game() {
         // check dic
         if (!(guessedWord in dictionary) || guessedWord.length < 5) {
             // toggle toast?
+            console.log('nope')
             return;
         }
         let allGreen = true;
         let i = 0;
         const lettersGuessed = [];
         while (i < 5) {
+            i++;
             const g = currentGuess[i];
             const w = wordOfTheDay[i];
             const currGuess = {
