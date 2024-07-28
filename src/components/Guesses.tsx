@@ -5,12 +5,12 @@ import type { Guess, LetterGuess, } from '../types';
 
 function Blank(key: number) {
     return (
-        <div className='flex flex-row justify-center gap-1' key={`blank-${key}`}>
-            <div className='border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16' />
-            <div className='border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16' />
-            <div className='border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16' />
-            <div className='border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16' />
-            <div className='border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16' />
+        <div className='flex flex-row justify-center gap-[.4rem]' key={`blank-${key}`}>
+            <div className='border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16' />
+            <div className='border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16' />
+            <div className='border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16' />
+            <div className='border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16' />
+            <div className='border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16' />
         </div>
     )
 }
@@ -60,7 +60,7 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
 
     const guessesToRender = React.useMemo(() => {
         return guesses.map(({ letters }, index) => (
-            <div className='flex flex-row justify-center gap-1' key={`guess-${index}`}>
+            <div className='flex flex-row justify-center gap-[.4rem]' key={`guess-${index}`}>
                 {LetterToRender(letters[0])}
                 {LetterToRender(letters[1])}
                 {LetterToRender(letters[2])}
@@ -78,30 +78,30 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
         )
     }
     return (
-        <section className='flex flex-col py-2 gap-1'>
+        <section className='flex flex-col py-2 gap-[.4rem]'>
             {guessesToRender}
-            <div className='flex flex-row justify-center gap-1'>
-                <div className={currentGuess[0] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+            <div className='flex flex-row justify-center gap-[.4rem]'>
+                <div className={currentGuess[0] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
                     <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[0] || ''}
                     </span>
                 </div>
-                <div className={currentGuess[1] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
+                <div className={currentGuess[1] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
                     <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[1] || ''}
                     </span>
                 </div>
-                <div className={currentGuess[2] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
+                <div className={currentGuess[2] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
                     <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[2] || ''}
                     </span>
                 </div>
-                <div className={currentGuess[3] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
+                <div className={currentGuess[3] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
                     <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[3] || ''}
                     </span>
                 </div>
-                <div className={currentGuess[4] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
+                <div className={currentGuess[4] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
                     <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[4] || ''}
                     </span>
