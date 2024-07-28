@@ -19,24 +19,24 @@ function LetterToRender({ letter, status }: LetterGuess) {
     switch (status) {
         case GREEN:
             return (
-                <div className='grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-green-600'>
-                    <span className='text-white'>
+                <div className='grid place-items-center border-2 border-green-600 w-14 h-14 md:w-16 md:h-16 bg-green-600'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
                 </div>
             )
         case YELLOW:
             return (
-                <div className='grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-yellow-500'>
-                    <span className='text-white'>
+                <div className='grid place-items-center border-2 border-yellow-500 w-14 h-14 md:w-16 md:h-16 bg-yellow-500'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
                 </div>
             )
         default:
             return (
-                <div className='grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-gray-500'>
-                    <span className='text-white'>
+                <div className='grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-slate-500'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
                 </div>
@@ -82,27 +82,27 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
             {guessesToRender}
             <div className='flex flex-row justify-center gap-1'>
                 <div className={currentGuess[0] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
-                    <span className='text-white'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[0] || ''}
                     </span>
                 </div>
                 <div className={currentGuess[1] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
-                    <span className='text-white'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[1] || ''}
                     </span>
                 </div>
                 <div className={currentGuess[2] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
-                    <span className='text-white'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[2] || ''}
                     </span>
                 </div>
                 <div className={currentGuess[3] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
-                    <span className='text-white'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[3] || ''}
                     </span>
                 </div>
                 <div className={currentGuess[4] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-700 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
-                    <span className='text-white'>
+                    <span className='text-white text-3xl font-extrabold'>
                         {currentGuess[4] || ''}
                     </span>
                 </div>
