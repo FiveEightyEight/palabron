@@ -32,7 +32,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
     const middleRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ']
     const lastRow = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
     return (
-        <section className='grid grid-rows-4 grid-cols-1 px-1 gap-[.35rem] max-w-full'>
+        <section className='grid grid-rows-4 grid-cols-1 px-1 gap-[.35rem] max-w-full safe-bottom'>
             <div className='flex auto-cols-max gap-[.35rem] md:gap-2 justify-center'>
                 {accents.map((letter: string, i: number) => (
                     <KeyboardButton
