@@ -126,7 +126,7 @@ export default function Game() {
                     <Guesses guesses={guesses} currentGuess={currentGuess} />
                 </div>
             </section>
-            <div className='flex justify-center min-w-full'>
+            <div className='mx-auto min-w-full'>
                 <Keyboard
                     guessedLetters={guessedLetters}
                     onTap={onTap}

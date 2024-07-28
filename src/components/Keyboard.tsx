@@ -17,8 +17,8 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
             onClick={vibrate}
             onMouseDown={cb}
             className={
-                type === 'grey' ? 'grid place-items-center bg-gray-800 text-gray-50 w-8 h-10 md:w-9 md:h-11 p-1 rounded-sm font-bold'
-                    : 'grid place-items-center bg-slate-500 text-white w-8 h-10 md:w-9 md:h-11 p-1 rounded-sm font-bold'
+                type === 'grey' ? 'grid place-items-center bg-gray-800 text-gray-50 w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
+                    : 'grid place-items-center bg-slate-500 text-white w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
             }
         >
             <span>{label}</span>
@@ -38,7 +38,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
     const middleRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ']
     const lastRow = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
     return (
-        <section className='grid grid-rows-4 grid-cols-1 px-1 gap-[.35rem] safe-bottom'>
+        <section className='grid grid-rows-4 grid-cols-1 place-items-center gap-[.35rem] safe-bottom'>
             <div className='flex gap-[.35rem] md:gap-2 justify-center'>
                 {accents.map((letter: string, i: number) => (
                     <KeyboardButton
@@ -49,7 +49,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                     />
                 ))}
             </div>
-            <div className='grid grid-cols-10 justify-center content-center'>
+            <div className='grid grid-cols-10 gap-[.35rem] justify-center content-center'>
                 {topRow.map((letter: string, i: number) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
@@ -59,7 +59,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                     />
                 ))}
             </div>
-            <div className='grid grid-cols-10 justify-center content-center'>
+            <div className='grid grid-cols-10 gap-[.35rem] justify-center content-center'>
                 {middleRow.map((letter: string, i: number) => (
                     <KeyboardButton
                         cb={() => onTap(letter)}
@@ -69,17 +69,17 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                     />
                 ))}
             </div>
-            <div className='flex flex-row gap-1 justify-center content-center'>
+            <div className='flex flex-row gap-[.35rem] justify-center content-center'>
                 <button
                     onMouseDown={onEnter}
                     className={
-                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-10 md:w-16 md:h-11 p-1 rounded-sm'
-                            : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-10 md:w-16 md:h-11 p-1 rounded-sm'
+                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
+                            : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
                     }
                 >
                     <span className='text-[.5rem] font-bold'>ACEPTAR</span>
                 </button>
-                <div className='grid grid-cols-7 gap-1 justify-center content-center'>
+                <div className='grid grid-cols-7 gap-[.35rem] justify-center content-center'>
                     {lastRow.map((letter: string, i: number) => (
                         <KeyboardButton
                             cb={() => onTap(letter)}
@@ -92,8 +92,8 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                 <button
                     onMouseDown={onDelete}
                     className={
-                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-10 md:w-16 md:h-11 p-1  rounded-sm'
-                            : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-10 md:w-16 md:h-11 p-1 rounded-sm'
+                        'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-11 md:w-16 md:h-11 p-1  rounded-sm'
+                            : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
                     }
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 512 512">
