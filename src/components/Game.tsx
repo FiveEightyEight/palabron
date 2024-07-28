@@ -3,14 +3,14 @@ import Guesses from './Guesses';
 import Keyboard from './Keyboard';
 import { dictionary } from '../data';
 import { GREY, GREEN, YELLOW } from '../constants';
-import type { GameState, Guess } from '../types';
+import type { GameState, Guess, GuessedLetters } from '../types';
 // Today new Date().toJSON().split('T')[0]
 export default function Game() {
-    const [wordOfTheDay, setWordOfTheDay] = React.useState('SUEÑO');
+    const [wordOfTheDay, setWordOfTheDay] = React.useState<string>('');
     const [currentGuess, setCurrentGuess] = React.useState<string[]>([]);
     const [today, setToday] = React.useState(new Date().toJSON().split('T')[0]);
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
-    const [guessedLetters, setGuessedLetters] = React.useState({})
+    const [guessedLetters, setGuessedLetters] = React.useState<GuessedLetters>({})
     const [gameOver, setGameOver] = React.useState(false);
     React.useEffect(() => {
 
@@ -59,10 +59,23 @@ export default function Game() {
             const { wordOfTheDay, guesses, guessedLetters } = result[today];
         } else {
             // load the word of the day
-            setWordOfTheDay('SUEÑO');
+            // setWordOfTheDay('SUEÑO');
+            selectNewWord()
         }
     }, []);
 
+    const selectNewWord = () => {
+        const keys = Object.keys(dictionary)
+        const word = keys[Math.floor(Math.random() * keys.length)]
+        setWordOfTheDay(word);
+    }
+
+    const playAgain = () => {
+        selectNewWord();
+        setGuesses([])
+        setGuessedLetters({})
+        setGameOver(false);
+    }
     const onTap = (letter: string) => {
         if (gameOver || currentGuess.length >= 5) return;
         setCurrentGuess([...currentGuess, letter]);
@@ -121,10 +134,21 @@ export default function Game() {
         <div className='flex flex-col justify-between py-1 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
             <section className='text-center'>
                 <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
-                <span className='text-gray-300 text-center text-[.6rem] italic'>(pre-alpha)</span>
+                <span className='text-gray-300 text-center text-[.6rem] italic'>(alpha-0.1.0)</span>
                 <div className='py-1'>
                     <Guesses guesses={guesses} currentGuess={currentGuess} />
                 </div>
+                {
+                    gameOver && (
+                        <button
+                            className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
+                            aria-label='Juega de nuevo'
+                            onClick={playAgain}
+                        >
+                            Juega de Nuevo
+                        </button>
+                    )
+                }
             </section>
             <div className='mx-auto min-w-full'>
                 <Keyboard
