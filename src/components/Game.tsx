@@ -6,7 +6,7 @@ import { GREY, GREEN, YELLOW } from '../constants';
 import type { GameState, Guess } from '../types';
 // Today new Date().toJSON().split('T')[0]
 export default function Game() {
-    const [wordOfTheDay, setWordOfTheDay] = React.useState('sueño');
+    const [wordOfTheDay, setWordOfTheDay] = React.useState('SUEÑO');
     const [currentGuess, setCurrentGuess] = React.useState<string[]>([]);
     const [today, setToday] = React.useState(new Date().toJSON().split('T')[0]);
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
@@ -59,7 +59,7 @@ export default function Game() {
             const { wordOfTheDay, guesses, guessedLetters } = result[today];
         } else {
             // load the word of the day
-            setWordOfTheDay('sueño');
+            setWordOfTheDay('SUEÑO');
         }
     }, []);
 

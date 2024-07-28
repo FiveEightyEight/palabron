@@ -27,10 +27,10 @@ type KeyboardProps = {
     onDelete: () => void;
 }
 export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: KeyboardProps) {
-    const accents = ['á', 'é', 'í', 'ó', 'ú', 'ü'];
-    const topRow = ['q', 'w', 'e', 'r', 't', 'y', 'u', 'i', 'o', 'p']
-    const middleRow = ['a', 's', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'ñ']
-    const lastRow = ['z', 'x', 'c', 'v', 'b', 'n', 'm']
+    const accents = ['Á', 'É', 'Í', 'Ó', 'Ú', 'Ü'];
+    const topRow = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
+    const middleRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ']
+    const lastRow = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
     return (
         <section className='grid grid-rows-4 grid-cols-1 px-1 gap-1 max-w-full'>
             <div className='flex auto-cols-max gap-2 md:gap-4 justify-center'>
