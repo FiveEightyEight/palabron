@@ -118,12 +118,14 @@ export default function Game() {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1))
 
     return (
-        <div className='flex flex-col justify-center h-screen bg-black'>
-            <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRON</h1>
-            <span className='text-gray-50 text-center text-xs'>(pre-alpha)</span>
-            <div className='py-1'>
-                <Guesses guesses={guesses} currentGuess={currentGuess} />
-            </div>
+        <div className='flex flex-col justify-between py-1 md:py-5 h-screen bg-black'>
+            <section className='text-center'>
+                <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRON</h1>
+                <span className='text-gray-300 text-center text-[.6rem] italic'>(pre-alpha)</span>
+                <div className='py-1'>
+                    <Guesses guesses={guesses} currentGuess={currentGuess} />
+                </div>
+            </section>
             <div className='flex justify-center min-w-full'>
                 <Keyboard
                     guessedLetters={guessedLetters}
