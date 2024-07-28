@@ -7,8 +7,14 @@ type KeyboardButtonProps = {
     type: string;
 }
 const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
+    const vibrate = () => {
+        if (navigator.vibrate) {
+            navigator.vibrate(200);
+        }
+    };
     return (
         <button
+            onClick={vibrate}
             onMouseDown={cb}
             className={
                 type === 'grey' ? 'grid place-items-center bg-gray-800 text-gray-50 w-8 h-10 md:w-9 md:h-11 p-1 rounded-sm font-bold'
