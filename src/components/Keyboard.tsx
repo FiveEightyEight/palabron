@@ -20,6 +20,7 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
                 type === 'grey' ? 'grid place-items-center bg-gray-800 text-gray-50 w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
                     : 'grid place-items-center bg-slate-500 text-white w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
             }
+            aria-label={label}
         >
             <span>{label}</span>
         </button>
@@ -76,6 +77,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                         'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
                             : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
                     }
+                    aria-label="aceptar"
                 >
                     <span className='text-[.5rem] font-bold'>ACEPTAR</span>
                 </button>
@@ -95,6 +97,7 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
                         'grey' === 'grey' ? 'grid place-items-center bg-gray-700 text-gray-50 w-14 h-11 md:w-16 md:h-11 p-1  rounded-sm'
                             : 'grid place-items-center bg-gray-50 text-gray-700 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'
                     }
+                    aria-label="borrar"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 512 512">
                         <rect width="512" height="512" fill="none" />
