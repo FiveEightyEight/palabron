@@ -33,7 +33,7 @@ type KeyboardProps = {
     onEnter: () => void;
     onDelete: () => void;
 }
-export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: KeyboardProps) {
+export default React.memo(function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: KeyboardProps) {
     const accents = ['Á', 'É', 'Í', 'Ó', 'Ú', 'Ü'];
     const topRow = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
     const middleRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ']
@@ -104,4 +104,4 @@ export default function Keyboard({ guessedLetters, onTap, onEnter, onDelete }: K
             </div>
         </section>
     )
-}
+})
