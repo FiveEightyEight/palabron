@@ -21,7 +21,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
     switch (status) {
         case GREEN:
             return (
-                <div className='grid place-items-center border-2 border-green-600 w-14 h-14 md:w-16 md:h-16 bg-green-600'>
+                <div className={'flip grid place-items-center border-2 border-green-600 w-14 h-14 md:w-16 md:h-16 bg-green-600'}>
                     <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
@@ -29,7 +29,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
             )
         case YELLOW:
             return (
-                <div className='grid place-items-center border-2 border-yellow-500 w-14 h-14 md:w-16 md:h-16 bg-yellow-500'>
+                <div className={'flip grid place-items-center border-2 border-yellow-500 w-14 h-14 md:w-16 md:h-16 bg-yellow-500'}>
                     <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
@@ -37,7 +37,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
             )
         default:
             return (
-                <div className='grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-slate-500'>
+                <div className={'flip grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-slate-500'}>
                     <span className='text-white text-3xl font-extrabold'>
                         {letter}
                     </span>
@@ -47,7 +47,7 @@ function LetterToRender({ letter, status }: LetterGuess) {
 }
 
 
-export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], currentGuess: string[] }) {
+export default React.forwardRef(function Guesses({ guesses, currentGuess, transitionState }: { guesses: Guess[], currentGuess: string[], transitionState: any }, guessContainerRef: any) {
 
     const firstLetter = React.useRef<HTMLDivElement>(null);
     const secondLetter = React.useRef<HTMLDivElement>(null);
@@ -123,36 +123,82 @@ export default function Guesses({ guesses, currentGuess }: { guesses: Guess[], c
         )
     }
     return (
-        <section className='flex flex-col py-2 gap-[.4rem]'>
+        <section className='relative flex flex-col py-2 gap-[.4rem]'>
             {guessesToRender}
-            <div className='flex flex-row justify-center gap-[.4rem]'>
-                <div ref={firstLetter} className={currentGuess[0] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
-                    <span className='text-white text-3xl font-extrabold'>
-                        {currentGuess[0] || ''}
-                    </span>
-                </div>
-                <div ref={secondLetter} className={currentGuess[1] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
-                    <span className='text-white text-3xl font-extrabold'>
-                        {currentGuess[1] || ''}
-                    </span>
-                </div>
-                <div ref={thirdLetter} className={currentGuess[2] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
-                    <span className='text-white text-3xl font-extrabold'>
-                        {currentGuess[2] || ''}
-                    </span>
-                </div>
-                <div ref={fourthLetter} className={currentGuess[3] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
-                    <span className='text-white text-3xl font-extrabold'>
-                        {currentGuess[3] || ''}
-                    </span>
-                </div>
-                <div ref={fifthLetter} className={currentGuess[4] ? 'grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
-                    <span className='text-white text-3xl font-extrabold'>
-                        {currentGuess[4] || ''}
-                    </span>
-                </div>
+            <div ref={guessContainerRef} className='flex flex-row justify-center gap-[.4rem]'>
+                {transitionState ?
+                    <div className='relative'>
+                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[0] || ''}
+                            </span>
+                        </div>
+                        {LetterToRender(transitionState.lettersGuessed[0])}
+                    </div>
+                    : <div ref={firstLetter} className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <span className='text-white text-3xl font-extrabold'>
+                            {currentGuess[0] || ''}
+                        </span>
+                    </div>
+                }
+                {transitionState ?
+                    <div className='relative'>
+                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[1] || ''}
+                            </span>
+                        </div>
+                        {LetterToRender(transitionState.lettersGuessed[1])}
+                    </div>
+                    : <div ref={secondLetter} className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
+                        <span className='text-white text-3xl font-extrabold'>
+                            {currentGuess[1] || ''}
+                        </span>
+                    </div>}
+                {transitionState ?
+                    <div className='relative'>
+                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[2] || ''}
+                            </span>
+                        </div>
+                        {LetterToRender(transitionState.lettersGuessed[2])}
+                    </div>
+                    : <div ref={thirdLetter} className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
+                        <span className='text-white text-3xl font-extrabold'>
+                            {currentGuess[2] || ''}
+                        </span>
+                    </div>}
+                {transitionState ?
+                    <div className='relative'>
+                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[3] || ''}
+                            </span>
+                        </div>
+                        {LetterToRender(transitionState.lettersGuessed[3])}
+                    </div>
+                    : <div ref={fourthLetter} className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
+                        <span className='text-white text-3xl font-extrabold'>
+                            {currentGuess[3] || ''}
+                        </span>
+                    </div>}
+                {transitionState ?
+                    <div className='relative'>
+                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[4] || ''}
+                            </span>
+                        </div>
+                        {LetterToRender(transitionState.lettersGuessed[4])}
+                    </div>
+                    : <div ref={fifthLetter} className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
+                        <span className='text-white text-3xl font-extrabold'>
+                            {currentGuess[4] || ''}
+                        </span>
+                    </div>}
             </div>
             {blanksToRender}
         </section>
     )
-}
+})

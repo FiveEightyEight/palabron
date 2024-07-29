@@ -1,4 +1,6 @@
 import React from 'react'
+import gsap from 'gsap';
+import { useGSAP } from '@gsap/react';
 import Guesses from './Guesses';
 import Keyboard from './Keyboard';
 import { dictionary } from '../data';
@@ -11,9 +13,15 @@ export default function Game() {
     const [today, setToday] = React.useState(new Date().toJSON().split('T')[0]);
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
     const [guessedLetters, setGuessedLetters] = React.useState<GuessedLetters>({})
+    const [transitionState, setTransitionState] = React.useState<any>(null);
     const [gameOver, setGameOver] = React.useState(false);
-    React.useEffect(() => {
+    const [timeline, setTimeline] = React.useState<any>(null);
 
+    const guessContainerRef = React.useRef<HTMLDivElement>(null);
+
+    React.useEffect(() => {
+        const tl = gsap.timeline();
+        setTimeline(tl);
         const result: null | GameState = JSON.parse(localStorage.getItem(today) || 'null');
         if (result) {
             /*
@@ -63,6 +71,35 @@ export default function Game() {
             selectNewWord()
         }
     }, []);
+
+    useGSAP(() => {
+        if (!transitionState) return;
+        gsap.utils.toArray(".flip").forEach((block: any, i, arr) => {
+            const end = arr.length - 1 === i;
+            if (i % 2) {
+                timeline.add(
+                    gsap.from(block, {
+                        rotationX: 90,
+                        stagger: 0.09,
+                        delay: 0.2,
+                        duration: 0.5,
+                        onComplete: end ? nextPhase : () => { },
+                    }),
+                    "<"
+                )
+            } else {
+                timeline.add(
+                    gsap.to(block, {
+                        rotationX: 90,
+                        stagger: 0.09,
+                        delay: 0.2,
+                        duration: 0.5,
+                    }),
+                    "<"
+                )
+            }
+        })
+    }, { scope: guessContainerRef, dependencies: transitionState })
 
     const selectNewWord = () => {
         const keys = Object.keys(dictionary)
@@ -117,6 +154,13 @@ export default function Game() {
             i++;
         }
         const finalGuess = guesses.length >= 5;
+        setTransitionState({
+            allGreen, finalGuess, greyMap, yellowMap, guessedWord, lettersGuessed
+        });
+    }
+
+    const nextPhase = () => {
+        const { allGreen, finalGuess, greyMap, yellowMap, guessedWord, lettersGuessed } = transitionState;
         setGuessedLetters(Object.assign(guessedLetters, greyMap, yellowMap))
         setGuesses([...guesses, { guess: guessedWord, letters: lettersGuessed }])
 
@@ -125,6 +169,7 @@ export default function Game() {
             setGameOver(true)
         }
         setCurrentGuess([])
+        setTransitionState(null);
     }
 
     const onDelete = () =>
@@ -136,7 +181,7 @@ export default function Game() {
                 <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
                 <span className='text-gray-300 text-center text-[.6rem] italic'>(alpha-0.1.0)</span>
                 <div className='py-1'>
-                    <Guesses guesses={guesses} currentGuess={currentGuess} />
+                    <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
                 </div>
                 {
                     gameOver && (
