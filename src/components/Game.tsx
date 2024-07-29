@@ -14,6 +14,7 @@ export default function Game() {
     const [guesses, setGuesses] = React.useState<Guess[]>([]);
     const [guessedLetters, setGuessedLetters] = React.useState<GuessedLetters>({})
     const [transitionState, setTransitionState] = React.useState<any>(null);
+    const [revealWord, setRevealWord] = React.useState<boolean>(false);
     const [gameOver, setGameOver] = React.useState(false);
     const [timeline, setTimeline] = React.useState<any>(null);
 
@@ -166,6 +167,7 @@ export default function Game() {
 
         if (allGreen || finalGuess) {
             // end game
+            setRevealWord(!allGreen)
             setGameOver(true)
         }
         setCurrentGuess([])
@@ -185,13 +187,19 @@ export default function Game() {
                 </div>
                 {
                     gameOver && (
-                        <button
-                            className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
-                            aria-label='Juega de nuevo'
-                            onClick={playAgain}
-                        >
-                            Juega de Nuevo
-                        </button>
+                        <>
+                            {revealWord ?
+                                <p className='text-gray-50 text-center text-xl font-bold'>La palabra fue <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span></p>
+                                : <p className='text-gray-50 text-center text-xl font-extrabold'>Nice!</p>
+                            }
+                            <button
+                                className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
+                                aria-label='Juega de nuevo'
+                                onClick={playAgain}
+                            >
+                                Juega de Nuevo
+                            </button>
+                        </>
                     )
                 }
             </section>
