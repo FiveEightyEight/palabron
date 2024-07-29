@@ -21,7 +21,7 @@ export default function Game() {
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
 
     React.useEffect(() => {
-        const tl = gsap.timeline();
+        const tl = gsap.timeline({ paused: true });
         setTimeline(tl);
         const result: null | GameState = JSON.parse(localStorage.getItem(today) || 'null');
         if (result) {
@@ -75,6 +75,7 @@ export default function Game() {
 
     useGSAP(() => {
         if (!transitionState) return;
+        timeline.clear()
         gsap.utils.toArray(".flip").forEach((block: any, i, arr) => {
             const end = arr.length - 1 === i;
             if (i % 2) {
@@ -100,6 +101,7 @@ export default function Game() {
                 )
             }
         })
+        timeline.play()
     }, { scope: guessContainerRef, dependencies: transitionState })
 
     const selectNewWord = () => {
