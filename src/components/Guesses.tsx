@@ -58,35 +58,35 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, transi
     useGSAP(() => {
         if (!currentGuess[0]) return;
         gsap.from(firstLetter.current,
-            { scale: 1.1 },
+            { scale: 1.15 },
         )
     }, { dependencies: [currentGuess[0]] })
 
     useGSAP(() => {
         if (!currentGuess[1]) return;
         gsap.from(secondLetter.current,
-            { scale: 1.1 },
+            { scale: 1.15 },
         )
     }, { dependencies: [currentGuess[1]] })
 
     useGSAP(() => {
         if (!currentGuess[2]) return;
         gsap.from(thirdLetter.current,
-            { scale: 1.1 },
+            { scale: 1.15 },
         )
     }, { dependencies: [currentGuess[2]] })
 
     useGSAP(() => {
         if (!currentGuess[3]) return;
         gsap.from(fourthLetter.current,
-            { scale: 1.1 },
+            { scale: 1.15 },
         )
     }, { dependencies: [currentGuess[3]] })
 
     useGSAP(() => {
         if (!currentGuess[4]) return;
         gsap.from(fifthLetter.current,
-            { scale: 1.1 },
+            { scale: 1.15 },
         )
     }, { dependencies: [currentGuess[4]] })
 
