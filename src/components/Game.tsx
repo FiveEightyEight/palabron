@@ -108,6 +108,7 @@ export default function Game() {
     }, { scope: guessContainerRef, dependencies: transitionState })
 
     useGSAP(() => {
+        // wrong guess animation
         if (!guessedWordDoesNotExist) return;
         timeline.clear();
         timeline.add(
