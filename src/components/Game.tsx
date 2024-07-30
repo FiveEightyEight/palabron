@@ -129,6 +129,23 @@ export default function Game() {
                 onComplete: () => setGuessedWordDoesNotExist(false)
             })
         )
+        timeline.add(
+            gsap.to(toastRef.current, {
+                opacity: 1,
+                y: 150,
+                duration: 2,
+                ease: "power3.out"
+            }
+            ), "<"
+        )
+        timeline.add(
+            gsap.to(toastRef.current, {
+                opacity: 0,
+                y: 0,
+                duration: 1,
+                ease: "power3.out"
+            })
+        )
         timeline.play()
     }, { scope: guessContainerRef, dependencies: [guessedWordDoesNotExist] })
 
