@@ -21,6 +21,7 @@ export default function Game() {
     const [timeline, setTimeline] = React.useState<any>(null);
 
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
+    const toastRef = React.useRef<HTMLParagraphElement>(null);
 
     React.useEffect(() => {
         const tl = gsap.timeline({ paused: true });
@@ -241,6 +242,13 @@ export default function Game() {
                 onEnter={onEnter}
                 onDelete={onDelete}
             />
+            <p
+                ref={toastRef}
+                className="absolute place-self-center w-52 h-8 bg-white border-2 border-slate-200 text-nowrap text-black text-center align-middle pt-[.1rem] pb-[.2rem] font-extrabold rounded-2xl"
+                style={{ opacity: 0 }}
+            >
+                Palabra no existe
+            </p>
         </div>
     )
 }
