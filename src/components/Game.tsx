@@ -181,10 +181,12 @@ export default function Game() {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1))
 
     return (
-        <div className='flex flex-col justify-between py-1 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
+        <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
             <section className='text-center'>
-                <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
-                <span className='text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
+                <div className='-mb-2'>
+                    <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
+                    <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
+                </div>
                 <div className='py-1'>
                     <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
                 </div>
@@ -206,14 +208,12 @@ export default function Game() {
                     )
                 }
             </section>
-            <div className='mx-auto min-w-full'>
-                <Keyboard
-                    guessedLetters={guessedLetters}
-                    onTap={onTap}
-                    onEnter={onEnter}
-                    onDelete={onDelete}
-                />
-            </div>
+            <Keyboard
+                guessedLetters={guessedLetters}
+                onTap={onTap}
+                onEnter={onEnter}
+                onDelete={onDelete}
+            />
         </div>
     )
 }

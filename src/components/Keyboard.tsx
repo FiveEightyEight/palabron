@@ -17,8 +17,8 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
             onClick={vibrate}
             onMouseDown={cb}
             className={
-                type === 'grey' ? 'grid place-items-center bg-gray-800 focus:bg-gray-950 active:bg-gray-950 text-gray-50 w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
-                    : 'grid place-items-center bg-slate-500 focus:bg-slate-700 active:bg-slate-700 text-white w-9 h-11 md:w-9 md:h-11 p-1 rounded-sm font-bold'
+                type === 'grey' ? 'grid place-items-center bg-gray-800 focus:bg-gray-950 active:bg-gray-950 text-gray-50 w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'
+                    : 'grid place-items-center bg-slate-500 focus:bg-slate-700 active:bg-slate-700 text-white w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'
             }
             aria-label={label}
         >
@@ -38,6 +38,7 @@ export default React.memo(function Keyboard({ guessedLetters, onTap, onEnter, on
     const topRow = ['Q', 'W', 'E', 'R', 'T', 'Y', 'U', 'I', 'O', 'P']
     const middleRow = ['A', 'S', 'D', 'F', 'G', 'H', 'J', 'K', 'L', 'Ñ']
     const lastRow = ['Z', 'X', 'C', 'V', 'B', 'N', 'M']
+    // max-w-[97dvw]
     return (
         <section className='grid grid-rows-4 grid-cols-1 place-items-center gap-[.35rem] safe-bottom'>
             <div className='flex gap-[.35rem] md:gap-2 justify-center'>
@@ -73,7 +74,7 @@ export default React.memo(function Keyboard({ guessedLetters, onTap, onEnter, on
             <div className='flex flex-row gap-[.35rem] justify-center content-center'>
                 <button
                     onMouseDown={onEnter}
-                    className={'grid place-items-center bg-gray-700 text-white focus:bg-gray-900 active:bg-gray-900 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'}
+                    className={'grid place-items-center bg-gray-700 text-white focus:bg-gray-900 active:bg-gray-900 w-14 h-14 md:w-16 md:h-14 p-1 rounded-sm'}
                     aria-label="aceptar"
                 >
                     <span className='text-[.5rem] font-bold'>ACEPTAR</span>
@@ -90,7 +91,7 @@ export default React.memo(function Keyboard({ guessedLetters, onTap, onEnter, on
                 </div>
                 <button
                     onMouseDown={onDelete}
-                    className={'grid place-items-center bg-gray-700 text-white focus:bg-gray-900 active:bg-gray-900 w-14 h-11 md:w-16 md:h-11 p-1 rounded-sm'}
+                    className={'grid place-items-center bg-gray-700 text-white focus:bg-gray-900 active:bg-gray-900 w-14 h-14 md:w-16 md:h-14 p-1 rounded-sm'}
                     aria-label="borrar"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" width="1.1em" height="1.1em" viewBox="0 0 512 512">
