@@ -130,11 +130,13 @@ export default function Game() {
                 onComplete: () => setGuessedWordDoesNotExist(false)
             })
         )
-        timeline.add(
-            gsap.set(toastRef.current, {
-                y: guessContainerRef.current?.getBoundingClientRect()?.y + window.scrollY + 5,
-            })
-        )
+        if (guessContainerRef.current) {
+            timeline.add(
+                gsap.set(toastRef.current, {
+                    y: guessContainerRef.current?.getBoundingClientRect()?.y + window.scrollY + 5,
+                })
+            )
+        }
         timeline.add(
             gsap.to(toastRef.current, {
                 opacity: 1,
