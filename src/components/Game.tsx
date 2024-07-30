@@ -130,10 +130,14 @@ export default function Game() {
             })
         )
         timeline.add(
+            gsap.set(toastRef.current, {
+                y: guessContainerRef.current?.getBoundingClientRect()?.y + window.scrollY + 5,
+            })
+        )
+        timeline.add(
             gsap.to(toastRef.current, {
                 opacity: 1,
-                y: 150,
-                duration: 2,
+                duration: 1.2,
                 ease: "power3.out"
             }
             ), "<"
@@ -141,8 +145,7 @@ export default function Game() {
         timeline.add(
             gsap.to(toastRef.current, {
                 opacity: 0,
-                y: 0,
-                duration: 1,
+                duration: .5,
                 ease: "power3.out"
             })
         )
