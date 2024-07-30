@@ -6,6 +6,7 @@ import Keyboard from './Keyboard';
 import { dictionary } from '../data';
 import { GREY, GREEN, YELLOW } from '../constants';
 import type { GameState, Guess, GuessedLetters } from '../types';
+import packageJSON from '../../package.json'
 // Today new Date().toJSON().split('T')[0]
 export default function Game() {
     const [wordOfTheDay, setWordOfTheDay] = React.useState<string>('');
@@ -183,7 +184,7 @@ export default function Game() {
         <div className='flex flex-col justify-between py-1 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
             <section className='text-center'>
                 <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
-                <span className='text-gray-300 text-center text-[.6rem] italic'>(alpha-0.2.0)</span>
+                <span className='text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
                 <div className='py-1'>
                     <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
                 </div>
