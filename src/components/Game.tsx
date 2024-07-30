@@ -16,6 +16,7 @@ export default function Game() {
     const [guessedLetters, setGuessedLetters] = React.useState<GuessedLetters>({})
     const [transitionState, setTransitionState] = React.useState<any>(null);
     const [revealWord, setRevealWord] = React.useState<boolean>(false);
+    const [guessedWordDoesNotExist, setGuessedWordDoesNotExist] = React.useState<boolean>(false);
     const [gameOver, setGameOver] = React.useState(false);
     const [timeline, setTimeline] = React.useState<any>(null);
 
@@ -105,6 +106,31 @@ export default function Game() {
         timeline.play()
     }, { scope: guessContainerRef, dependencies: transitionState })
 
+    useGSAP(() => {
+        if (!guessedWordDoesNotExist) return;
+        timeline.clear();
+        timeline.add(
+            gsap.to(guessContainerRef.current, {
+                x: 15,
+                duration: .1,
+            })
+        )
+        timeline.add(
+            gsap.to(guessContainerRef.current, {
+                x: -15,
+                duration: .1,
+            })
+        )
+        timeline.add(
+            gsap.to(guessContainerRef.current, {
+                x: 0,
+                duration: .1,
+                onComplete: () => setGuessedWordDoesNotExist(false)
+            })
+        )
+        timeline.play()
+    }, { scope: guessContainerRef, dependencies: [guessedWordDoesNotExist] })
+
     const selectNewWord = () => {
         const keys = Object.keys(dictionary)
         const word = keys[Math.floor(Math.random() * keys.length)]
@@ -126,9 +152,10 @@ export default function Game() {
         if (gameOver) return;
         const guessedWord = currentGuess.join('');
         // check dic
-        if (!(guessedWord in dictionary) || guessedWord.length < 5) {
+        if (guessedWord.length < 5) return;
+        if (!(guessedWord in dictionary)) {
             // toggle toast?
-            console.log('nope')
+            setGuessedWordDoesNotExist(true)
             return;
         }
         let allGreen = true;
