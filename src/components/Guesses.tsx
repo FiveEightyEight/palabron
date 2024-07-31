@@ -47,13 +47,13 @@ function LetterToRender({ letter, status }: LetterGuess) {
 }
 
 
-export default React.forwardRef(function Guesses({ guesses, currentGuess, transitionState }: { guesses: Guess[], currentGuess: string[], transitionState: any }, guessContainerRef: any) {
+export default React.forwardRef(function Guesses({ guesses, currentGuess, setCurrentPosition, transitionState }: { guesses: Guess[], currentGuess: string[], setCurrentPosition: (n: number) => void, transitionState: any }, guessContainerRef: any) {
 
-    const firstLetter = React.useRef<HTMLDivElement>(null);
-    const secondLetter = React.useRef<HTMLDivElement>(null);
-    const thirdLetter = React.useRef<HTMLDivElement>(null);
-    const fourthLetter = React.useRef<HTMLDivElement>(null);
-    const fifthLetter = React.useRef<HTMLDivElement>(null);
+    const firstLetter = React.useRef<HTMLButtonElement>(null);
+    const secondLetter = React.useRef<HTMLButtonElement>(null);
+    const thirdLetter = React.useRef<HTMLButtonElement>(null);
+    const fourthLetter = React.useRef<HTMLButtonElement>(null);
+    const fifthLetter = React.useRef<HTMLButtonElement>(null);
 
     useGSAP(() => {
         if (!currentGuess[0]) return;
@@ -128,75 +128,110 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, transi
             <div ref={guessContainerRef} className='flex flex-row justify-center gap-[.4rem]'>
                 {transitionState ?
                     <div className='relative'>
-                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <button ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                            key='cg-l-1-1'>
                             <span className='text-white text-3xl font-extrabold'>
                                 {currentGuess[0] || ''}
                             </span>
-                        </div>
+                        </button>
                         {LetterToRender(transitionState.lettersGuessed[0])}
                     </div>
-                    : <div ref={firstLetter} className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                    : <button
+                        ref={firstLetter}
+                        aria-label={'guess position 1'}
+                        className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items hover:border-slate-500 active:border-slate-500 focus:border-slate-500-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        key='cg-l-1'
+                        onMouseDown={() => setCurrentPosition(0)}
+                    >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[0] || ''}
                         </span>
-                    </div>
+                    </button>
                 }
                 {transitionState ?
                     <div className='relative'>
-                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <button ref={secondLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                            key='cg-l-1-2'>
                             <span className='text-white text-3xl font-extrabold'>
                                 {currentGuess[1] || ''}
                             </span>
-                        </div>
+                        </button>
                         {LetterToRender(transitionState.lettersGuessed[1])}
                     </div>
-                    : <div ref={secondLetter} className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-2'>
+                    : <button
+                        ref={secondLetter}
+                        aria-label={'guess position 2'}
+                        className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        key='cg-l-2'
+                        onMouseDown={() => setCurrentPosition(1)}
+                    >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[1] || ''}
                         </span>
-                    </div>}
+                    </button>}
                 {transitionState ?
                     <div className='relative'>
-                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <button ref={thirdLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                            key='cg-l-1-3'>
                             <span className='text-white text-3xl font-extrabold'>
                                 {currentGuess[2] || ''}
                             </span>
-                        </div>
+                        </button>
                         {LetterToRender(transitionState.lettersGuessed[2])}
                     </div>
-                    : <div ref={thirdLetter} className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-3'>
+                    : <button
+                        ref={thirdLetter}
+                        aria-label={'guess position 3'}
+                        className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        key='cg-l-3'
+                        onMouseDown={() => setCurrentPosition(2)}
+                    >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[2] || ''}
                         </span>
-                    </div>}
+                    </button>}
                 {transitionState ?
                     <div className='relative'>
-                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <button ref={fourthLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                            key='cg-l-1-4'>
                             <span className='text-white text-3xl font-extrabold'>
                                 {currentGuess[3] || ''}
                             </span>
-                        </div>
+                        </button>
                         {LetterToRender(transitionState.lettersGuessed[3])}
                     </div>
-                    : <div ref={fourthLetter} className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-4'>
+                    : <button
+                        ref={fourthLetter}
+                        aria-label={'guess position 4'}
+                        className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        key='cg-l-4'
+                        onMouseDown={() => setCurrentPosition(3)}
+                    >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[3] || ''}
                         </span>
-                    </div>}
+                    </button>}
                 {transitionState ?
                     <div className='relative'>
-                        <div ref={firstLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-1'>
+                        <button ref={fifthLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                            key='cg-l-1-5'>
                             <span className='text-white text-3xl font-extrabold'>
                                 {currentGuess[4] || ''}
                             </span>
-                        </div>
+                        </button>
                         {LetterToRender(transitionState.lettersGuessed[4])}
                     </div>
-                    : <div ref={fifthLetter} className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'} key='cg-l-5'>
+                    : <button
+                        ref={fifthLetter}
+                        aria-label={'guess position 5'}
+                        className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        key='cg-l-5'
+                        onMouseDown={() => setCurrentPosition(4)}
+                    >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[4] || ''}
                         </span>
-                    </div>}
+                    </button>}
             </div>
             {blanksToRender}
         </section>
