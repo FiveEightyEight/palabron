@@ -285,7 +285,7 @@ export default function Game() {
                 <section className='text-center'>
                     <div className='-mb-2'>
                         <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
-                        <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
+                        <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
                     <div className='py-1'>
                         <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
