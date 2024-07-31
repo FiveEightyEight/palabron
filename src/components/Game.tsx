@@ -21,6 +21,7 @@ export default function Game() {
     const [gameOver, setGameOver] = React.useState(false);
     const [timeline, setTimeline] = React.useState<any>(null);
     const [currentPosition, setCurrentPosition] = React.useState<number>(0);
+    const [deleteAtCurrentPosition, setDeleteAtCurrentPosition] = React.useState<boolean>(false);
 
     const modalRef = React.useRef<HTMLElement>(null)
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
@@ -283,8 +284,23 @@ export default function Game() {
     }
 
     const onDelete = () => {
-        setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1))
-        setCurrentPosition(_ => Math.max((currentGuess.length - 1), 0))
+        if (currentPosition === 4) {
+            setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
+            setCurrentPosition(_ => Math.max((currentGuess.length - 1), 0));
+            setDeleteAtCurrentPosition(false)
+            return;
+        }
+        const positionToDelete = deleteAtCurrentPosition ? currentPosition : currentPosition - 1;
+        const newCurrentGuess = [...currentGuess]
+        newCurrentGuess[positionToDelete] = '';
+        setCurrentGuess(newCurrentGuess);
+        setCurrentPosition(_ => Math.max((positionToDelete), 0));
+        setDeleteAtCurrentPosition(false)
+    }
+
+    const updateCurrentPosition = (position: number) => {
+        setCurrentPosition(position)
+        setDeleteAtCurrentPosition(true);
     }
 
     return (
@@ -301,7 +317,7 @@ export default function Game() {
                             guesses={guesses}
                             currentGuess={currentGuess}
                             transitionState={transitionState}
-                            setCurrentPosition={setCurrentPosition}
+                            setCurrentPosition={updateCurrentPosition}
                         />
                     </div>
                 </section>
