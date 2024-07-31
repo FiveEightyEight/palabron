@@ -186,6 +186,7 @@ export default function Game() {
         setGuessedLetters({})
         setGameOver(false);
         setCurrentPosition(0);
+        setLastLetterSet(false);
     }
     const onTap = (letter: string) => {
         if (gameOver || currentPosition >= 5 || lastLetterSet) return;
@@ -285,6 +286,7 @@ export default function Game() {
         setCurrentGuess([])
         setTransitionState(null);
         setCurrentPosition(0)
+        setLastLetterSet(false)
     }
 
     const onDelete = () => {
