@@ -1,4 +1,5 @@
 import React from 'react';
+import { GREY, GREEN, YELLOW } from '../constants';
 import type { GuessedLetters } from '../types';
 
 type KeyboardButtonProps = {
@@ -12,19 +13,53 @@ const KeyboardButton: React.FC<KeyboardButtonProps> = ({ cb, label, type }) => {
             navigator.vibrate(200);
         }
     };
-    return (
-        <button
-            onClick={vibrate}
-            onMouseDown={cb}
-            className={
-                type === 'grey' ? 'grid place-items-center bg-gray-800 focus:bg-gray-950 active:bg-gray-950 text-gray-50 w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'
-                    : 'grid place-items-center bg-slate-500 focus:bg-slate-700 active:bg-slate-700 text-white w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'
-            }
-            aria-label={label}
-        >
-            <span>{label}</span>
-        </button>
-    )
+
+    switch (type) {
+        case GREEN:
+            return (
+                <button
+                    onClick={vibrate}
+                    onMouseDown={cb}
+                    className={'grid place-items-center bg-green-600 focus:bg-green-700 active:bg-green-700 text-gray-50 w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'}
+                    aria-label={label}
+                >
+                    <span>{label}</span>
+                </button>
+            );
+        case YELLOW:
+            return (
+                <button
+                    onClick={vibrate}
+                    onMouseDown={cb}
+                    className={'grid place-items-center bg-yellow-500 focus:bg-yellow-600 active:bg-yellow-600 text-gray-50 w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'}
+                    aria-label={label}
+                >
+                    <span>{label}</span>
+                </button>
+            );
+        case GREY:
+            return (
+                <button
+                    onClick={vibrate}
+                    onMouseDown={cb}
+                    className={'grid place-items-center bg-gray-800 focus:bg-gray-950 active:bg-gray-950 text-gray-50 w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'}
+                    aria-label={label}
+                >
+                    <span>{label}</span>
+                </button>
+            );
+        default:
+            return (
+                <button
+                    onClick={vibrate}
+                    onMouseDown={cb}
+                    className={'grid place-items-center bg-slate-500 focus:bg-slate-700 active:bg-slate-700 text-white w-9 h-14 md:w-9 md:h-14 p-1 rounded-sm font-bold'}
+                    aria-label={label}
+                >
+                    <span>{label}</span>
+                </button>
+            );
+    }
 }
 
 type KeyboardProps = {
