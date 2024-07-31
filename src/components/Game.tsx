@@ -22,6 +22,7 @@ export default function Game() {
     const [timeline, setTimeline] = React.useState<any>(null);
     const [currentPosition, setCurrentPosition] = React.useState<number>(0);
     const [deleteAtCurrentPosition, setDeleteAtCurrentPosition] = React.useState<boolean>(false);
+    const [lastLetterSet, setLastLetterSet] = React.useState<boolean>(false);
 
     const modalRef = React.useRef<HTMLElement>(null)
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
@@ -187,11 +188,14 @@ export default function Game() {
         setCurrentPosition(0);
     }
     const onTap = (letter: string) => {
-        if (gameOver || currentPosition >= 5) return;
+        if (gameOver || currentPosition >= 5 || lastLetterSet) return;
         const newGuess = [...currentGuess]
         newGuess[currentPosition] = letter;
         setCurrentGuess(newGuess);
         setCurrentPosition((currentPosition) => Math.min((currentPosition + 1), 4));
+        if ((currentPosition + 1) === 5) {
+            setLastLetterSet(true);
+        }
     }
 
     const onEnter = () => {
@@ -288,6 +292,7 @@ export default function Game() {
             setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1));
             setCurrentPosition(_ => Math.max((currentGuess.length - 1), 0));
             setDeleteAtCurrentPosition(false)
+            setLastLetterSet(false);
             return;
         }
         const positionToDelete = deleteAtCurrentPosition ? currentPosition : currentPosition - 1;
@@ -296,11 +301,13 @@ export default function Game() {
         setCurrentGuess(newCurrentGuess);
         setCurrentPosition(_ => Math.max((positionToDelete), 0));
         setDeleteAtCurrentPosition(false)
+        setLastLetterSet(false);
     }
 
     const updateCurrentPosition = (position: number) => {
         setCurrentPosition(position)
         setDeleteAtCurrentPosition(true);
+        setLastLetterSet(false);
     }
 
     return (
