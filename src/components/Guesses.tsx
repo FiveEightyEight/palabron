@@ -139,7 +139,7 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                     : <button
                         ref={firstLetter}
                         aria-label={'guess position 1'}
-                        className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items hover:border-slate-500 active:border-slate-500 focus:border-slate-500-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items hover:border-slate-500 active:border-slate-500 focus:border-slate-500-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
                         key='cg-l-1'
                         onMouseDown={() => setCurrentPosition(0)}
                     >
@@ -161,7 +161,7 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                     : <button
                         ref={secondLetter}
                         aria-label={'guess position 2'}
-                        className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
                         key='cg-l-2'
                         onMouseDown={() => setCurrentPosition(1)}
                     >
@@ -182,7 +182,7 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                     : <button
                         ref={thirdLetter}
                         aria-label={'guess position 3'}
-                        className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
                         key='cg-l-3'
                         onMouseDown={() => setCurrentPosition(2)}
                     >
@@ -203,7 +203,7 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                     : <button
                         ref={fourthLetter}
                         aria-label={'guess position 4'}
-                        className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
                         key='cg-l-4'
                         onMouseDown={() => setCurrentPosition(3)}
                     >
@@ -224,7 +224,7 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                     : <button
                         ref={fifthLetter}
                         aria-label={'guess position 5'}
-                        className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                        className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
                         key='cg-l-5'
                         onMouseDown={() => setCurrentPosition(4)}
                     >
