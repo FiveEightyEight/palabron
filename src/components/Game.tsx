@@ -314,11 +314,12 @@ export default function Game() {
         <>
             <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
                 <section className='text-center'>
-                    <div className='-mb-2'>
+                    <div className='-mb-2 border-b-2 border-opacity-30 border-slate-400 pb-2 '>
                         <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
                         <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
-                    <div className='py-1'>
+                </section>
+                <div className='grid place-content-center py-1'>
                         <Guesses
                             ref={guessContainerRef}
                             guesses={guesses}
@@ -327,7 +328,6 @@ export default function Game() {
                             setCurrentPosition={updateCurrentPosition}
                         />
                     </div>
-                </section>
                 <Keyboard
                     guessedLetters={guessedLetters}
                     onTap={onTap}
@@ -341,8 +341,7 @@ export default function Game() {
                 >
                     Palabra no existe
                 </p>
-                {
-                    gameOver && (
+                {gameOver && (
                         <Modal ref={modalRef}>
                             <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
                                 <h3 className="text-gray-50 text-center text-2xl font-bold pt-4"> Game Over! </h3>
@@ -361,11 +360,8 @@ export default function Game() {
                                 </div>
                             </div>
                         </Modal>
-                    )
-                }
-
-            </div>
-
+                    )}
+            </div>\
         </>
     )
 }
