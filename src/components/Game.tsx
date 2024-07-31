@@ -175,6 +175,7 @@ export default function Game() {
     const onEnter = () => {
         if (gameOver) return;
         const guessedWord = currentGuess.join('');
+        const wordOfTheDaySplit = wordOfTheDay.split('');
         // check dic
         if (guessedWord.length < 5) return;
         if (!(guessedWord in dictionary)) {
@@ -185,38 +186,65 @@ export default function Game() {
         let allGreen = true;
         let i = 0;
         const lettersGuessed = [];
+        const greenMap: { [key: string]: string } = {}
         const greyMap: { [key: string]: string } = {}
         const yellowMap: { [key: string]: string } = {}
+
+        // find greens;
         while (i < 5) {
             const g = currentGuess[i];
             const w = wordOfTheDay[i];
+            if (g === w) {
+                greenMap[g] = GREEN
+                wordOfTheDaySplit[i] = '';
+                const currGuess = {
+                    letter: g,
+                    status: GREEN
+                }
+                lettersGuessed[i] = currGuess;
+            } else if (allGreen) {
+                allGreen = false
+            }
+            i++;
+        }
+        const finalGuess = guesses.length >= 5;
+        if (allGreen) {
+            setTransitionState({
+                allGreen, finalGuess, greenMap, greyMap, yellowMap, guessedWord, lettersGuessed
+            });
+            return;
+        }
+        allGreen = false;
+        i = 0;
+        while (i < 5) {
+            if (lettersGuessed[i]) {
+                i++
+                continue;
+            }
+            const g = currentGuess[i];
             const currGuess = {
                 letter: g,
                 status: GREY
             }
-            if (g === w) {
-                currGuess.status = GREEN
-            } else if (wordOfTheDay.includes(g)) {
+            if (wordOfTheDaySplit.includes(g)) {
                 currGuess.status = YELLOW
                 yellowMap[g] = YELLOW
             } else {
                 greyMap[g] = GREY
             }
-            if (allGreen && (currGuess.status === GREY || currGuess.status === YELLOW)) {
-                allGreen = false;
-            }
-            lettersGuessed.push(currGuess)
+            lettersGuessed[i] = currGuess;
             i++;
         }
-        const finalGuess = guesses.length >= 5;
+
         setTransitionState({
-            allGreen, finalGuess, greyMap, yellowMap, guessedWord, lettersGuessed
+            allGreen, finalGuess, greenMap, greyMap, yellowMap, guessedWord, lettersGuessed
         });
+
     }
 
     const nextPhase = () => {
-        const { allGreen, finalGuess, greyMap, yellowMap, guessedWord, lettersGuessed } = transitionState;
-        setGuessedLetters(Object.assign(guessedLetters, greyMap, yellowMap))
+        const { allGreen, finalGuess, greenMap, greyMap, yellowMap, guessedWord, lettersGuessed } = transitionState;
+        setGuessedLetters(Object.assign(guessedLetters, greyMap, yellowMap, greenMap))
         setGuesses([...guesses, { guess: guessedWord, letters: lettersGuessed }])
 
         if (allGreen || finalGuess) {
