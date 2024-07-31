@@ -3,6 +3,7 @@ import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 import Guesses from './Guesses';
 import Keyboard from './Keyboard';
+import Modal from './Modal';
 import { dictionary } from '../data';
 import { GREY, GREEN, YELLOW } from '../constants';
 import type { GameState, Guess, GuessedLetters } from '../types';
@@ -20,6 +21,7 @@ export default function Game() {
     const [gameOver, setGameOver] = React.useState(false);
     const [timeline, setTimeline] = React.useState<any>(null);
 
+    const modalRef = React.useRef<HTMLElement>(null)
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
     const toastRef = React.useRef<HTMLParagraphElement>(null);
 
@@ -155,6 +157,20 @@ export default function Game() {
         timeline.play()
     }, { scope: guessContainerRef, dependencies: [guessedWordDoesNotExist] })
 
+    useGSAP(() => {
+        if (!gameOver) return;
+        timeline.clear();
+        timeline.add(
+            gsap.from(modalRef.current, {
+                y: -100,
+                opacity: 0,
+                duration: .8,
+                ease: "power3.out"
+            })
+        )
+        timeline.play();
+    }, { scope: modalRef, dependencies: [gameOver] })
+
     const selectNewWord = () => {
         const keys = Object.keys(dictionary)
         const word = keys[Math.floor(Math.random() * keys.length)]
@@ -242,6 +258,11 @@ export default function Game() {
 
     }
 
+    const endGame = (allGreen: boolean): void => {
+        setRevealWord(!allGreen)
+        setGameOver(true)
+    }
+
     const nextPhase = () => {
         const { allGreen, finalGuess, greenMap, greyMap, yellowMap, guessedWord, lettersGuessed } = transitionState;
         setGuessedLetters(Object.assign(guessedLetters, greyMap, yellowMap, greenMap))
@@ -249,8 +270,7 @@ export default function Game() {
 
         if (allGreen || finalGuess) {
             // end game
-            setRevealWord(!allGreen)
-            setGameOver(true)
+            endGame(allGreen)
         }
         setCurrentGuess([])
         setTransitionState(null);
@@ -260,46 +280,55 @@ export default function Game() {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1))
 
     return (
-        <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
-            <section className='text-center'>
-                <div className='-mb-2'>
-                    <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
-                    <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
-                </div>
-                <div className='py-1'>
-                    <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
-                </div>
+        <>
+            <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
+                <section className='text-center'>
+                    <div className='-mb-2'>
+                        <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
+                        <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>(alpha-{packageJSON.version})</span>
+                    </div>
+                    <div className='py-1'>
+                        <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
+                    </div>
+                </section>
+                <Keyboard
+                    guessedLetters={guessedLetters}
+                    onTap={onTap}
+                    onEnter={onEnter}
+                    onDelete={onDelete}
+                />
+                <p
+                    ref={toastRef}
+                    className="absolute place-self-center w-52 h-8 bg-white border-2 border-slate-200 text-nowrap text-black text-center align-middle pt-[.1rem] pb-[.2rem] font-extrabold rounded-2xl"
+                    style={{ opacity: 0 }}
+                >
+                    Palabra no existe
+                </p>
                 {
                     gameOver && (
-                        <>
-                            {revealWord ?
-                                <p className='text-gray-50 text-center text-xl font-bold'>La palabra fue <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span></p>
-                                : <p className='text-gray-50 text-center text-xl font-extrabold'>Nice!</p>
-                            }
-                            <button
-                                className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
-                                aria-label='Juega de nuevo'
-                                onClick={playAgain}
-                            >
-                                Juega de Nuevo
-                            </button>
-                        </>
+                        <Modal ref={modalRef}>
+                            <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
+                                <h3 className="text-gray-50 text-center text-2xl font-bold pt-4"> Game Over! </h3>
+                                {revealWord ?
+                                    <p className='text-gray-50 text-center text-xl font-bold p-4'>La palabra fue <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span></p>
+                                    : <p className='text-gray-50 text-center text-xl font-extrabold p-4'>Descifraste <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span> 🎉</p>
+                                }
+                                <div className="flex justify-center p-4">
+                                    <button
+                                        className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
+                                        aria-label='Juega de nuevo'
+                                        onClick={playAgain}
+                                    >
+                                        Juega de Nuevo
+                                    </button>
+                                </div>
+                            </div>
+                        </Modal>
                     )
                 }
-            </section>
-            <Keyboard
-                guessedLetters={guessedLetters}
-                onTap={onTap}
-                onEnter={onEnter}
-                onDelete={onDelete}
-            />
-            <p
-                ref={toastRef}
-                className="absolute place-self-center w-52 h-8 bg-white border-2 border-slate-200 text-nowrap text-black text-center align-middle pt-[.1rem] pb-[.2rem] font-extrabold rounded-2xl"
-                style={{ opacity: 0 }}
-            >
-                Palabra no existe
-            </p>
-        </div>
+
+            </div>
+
+        </>
     )
 }
