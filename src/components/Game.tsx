@@ -20,6 +20,7 @@ export default function Game() {
     const [guessedWordDoesNotExist, setGuessedWordDoesNotExist] = React.useState<boolean>(false);
     const [gameOver, setGameOver] = React.useState(false);
     const [timeline, setTimeline] = React.useState<any>(null);
+    const [currentPosition, setCurrentPosition] = React.useState<number>(0);
 
     const modalRef = React.useRef<HTMLElement>(null)
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
@@ -182,10 +183,14 @@ export default function Game() {
         setGuesses([])
         setGuessedLetters({})
         setGameOver(false);
+        setCurrentPosition(0);
     }
     const onTap = (letter: string) => {
-        if (gameOver || currentGuess.length >= 5) return;
-        setCurrentGuess([...currentGuess, letter]);
+        if (gameOver || currentPosition >= 5) return;
+        const newGuess = [...currentGuess]
+        newGuess[currentPosition] = letter;
+        setCurrentGuess(newGuess);
+        setCurrentPosition((currentPosition) => Math.min((currentPosition + 1), 4));
     }
 
     const onEnter = () => {
@@ -274,10 +279,13 @@ export default function Game() {
         }
         setCurrentGuess([])
         setTransitionState(null);
+        setCurrentPosition(0)
     }
 
-    const onDelete = () =>
+    const onDelete = () => {
         setCurrentGuess(currentGuess.slice(0, currentGuess.length - 1))
+        setCurrentPosition(_ => Math.max((currentGuess.length - 1), 0))
+    }
 
     return (
         <>
@@ -288,7 +296,13 @@ export default function Game() {
                         <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
                     <div className='py-1'>
-                        <Guesses guesses={guesses} currentGuess={currentGuess} transitionState={transitionState} ref={guessContainerRef} />
+                        <Guesses
+                            ref={guessContainerRef}
+                            guesses={guesses}
+                            currentGuess={currentGuess}
+                            transitionState={transitionState}
+                            setCurrentPosition={setCurrentPosition}
+                        />
                     </div>
                 </section>
                 <Keyboard
