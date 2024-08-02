@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { type ReactNode } from 'react'
 import gsap from 'gsap';
 import { useGSAP } from '@gsap/react';
 
@@ -48,13 +48,14 @@ function LetterToRender({ letter, status }: LetterGuess) {
 
 
 type GuessesProps = {
-    guesses: Guess[],
-    currentGuess: string[],
-    setCurrentPosition: (n: number) => void,
-    transitionState: any
+    guesses: Guess[];
+    currentGuess: string[];
+    currentPosition: number;
+    setCurrentPosition: (n: number) => void;
+    transitionState: any;
 }
 
-export default React.forwardRef(function Guesses({ guesses, currentGuess, setCurrentPosition, transitionState }: GuessesProps, guessContainerRef: any) {
+export default React.forwardRef(function Guesses({ guesses, currentGuess, currentPosition, setCurrentPosition, transitionState }: GuessesProps, guessContainerRef: any) {
 
     const firstLetter = React.useRef<HTMLButtonElement>(null);
     const secondLetter = React.useRef<HTMLButtonElement>(null);
@@ -132,76 +133,48 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
 
     type GuessBoxProps = {
         value?: string;
-        active: boolean;
         hasValue: boolean;
         position: number;
+        children: ReactNode;
+        onMouseDown: () => void;
     }
 
-    const GuessBox = ({ active, hasValue, position, value }: GuessBoxProps, ref: any) => {
-        if (active && hasValue) {
-            return (
-                <button
-                    ref={ref}
-                    aria-label={'guess position ' + position}
-                    className={'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                    key={'cg-l-' + position}
-                    onMouseDown={() => setCurrentPosition(position)}
-                >
-                    <span className='text-white text-3xl font-extrabold'>
-                        {value || ''}
-                    </span>
-                </button>
-            )
-        }
-
-        if (active) {
-            // active, no value
-            return (
-                <button
-                    ref={ref}
-                    aria-label={'guess position ' + position}
-                    className={'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                    key={'cg-l-' + position}
-                    onMouseDown={() => setCurrentPosition(position)}
-                >
-                    <span className='text-white text-3xl font-extrabold'>
-                        {value || ''}
-                    </span>
-                </button>
-            )
-        }
-
+    const GuessBox = React.forwardRef(({ children, onMouseDown, hasValue, position }: GuessBoxProps, ref: any) => {
         if (hasValue) {
-            // not active, has value
+            // has value
             return (
                 <button
                     ref={ref}
-                    aria-label={'guess position ' + position}
-                    className={'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                    key={'cg-l-' + position}
-                    onMouseDown={() => setCurrentPosition(position)}
+                    aria-label={'guess position ' + position + 1}
+                    className={'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black relative'}
+                    key={'cg-l-' + position + 1}
+                    onMouseDown={onMouseDown}
                 >
-                    <span className='text-white text-3xl font-extrabold'>
-                        {value || ''}
-                    </span>
+                    {children}
                 </button>
             )
         }
-
-        // default not active and no value 
+        // default - no value 
         return (
             <button
                 ref={ref}
-                aria-label={'guess position ' + position}
-                className={'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                key={'cg-l-' + position}
-                onMouseDown={() => setCurrentPosition(position)}
+                aria-label={'guess position ' + position + 1}
+                className={'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black relative'}
+                key={'cg-l-' + position + 1}
+                onMouseDown={onMouseDown}
             >
-                <span className='text-white text-3xl font-extrabold'>
-                    {value || ''}
-                </span>
+                {children}
             </button>
         )
+    })
+
+    const ActiveBar = ({ active }: { active: boolean }) => {
+        if (active) {
+            return (
+                <span className='absolute z-0 box-border -bottom-2 w-full border-1 h-1 border-red-500  bg-red-500' />
+            )
+        }
+        return null;
     }
 
     return (
@@ -218,17 +191,19 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                         </button>
                         {LetterToRender(transitionState.lettersGuessed[0])}
                     </div>
-                    : <button
+                    : <GuessBox
                         ref={firstLetter}
-                        aria-label={'guess position 1'}
-                        className={currentGuess[0] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items hover:border-slate-500 active:border-slate-500 focus:border-slate-500-center border-2 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                        key='cg-l-1'
+                        position={0}
+                        hasValue={!!currentGuess[0]}
                         onMouseDown={() => setCurrentPosition(0)}
                     >
-                        <span className='text-white text-3xl font-extrabold'>
-                            {currentGuess[0] || ''}
-                        </span>
-                    </button>
+                        <>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[0] || ''}
+                            </span>
+                            <ActiveBar active={currentPosition === 0} />
+                        </>
+                    </GuessBox>
                 }
                 {transitionState ?
                     <div className='relative'>
@@ -240,17 +215,17 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                         </button>
                         {LetterToRender(transitionState.lettersGuessed[1])}
                     </div>
-                    : <button
+                    : <GuessBox
                         ref={secondLetter}
-                        aria-label={'guess position 2'}
-                        className={currentGuess[1] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                        key='cg-l-2'
+                        position={1}
+                        hasValue={!!currentGuess[1]}
                         onMouseDown={() => setCurrentPosition(1)}
                     >
                         <span className='text-white text-3xl font-extrabold'>
                             {currentGuess[1] || ''}
                         </span>
-                    </button>}
+                        <ActiveBar active={currentPosition === 1} />
+                    </GuessBox>}
                 {transitionState ?
                     <div className='relative'>
                         <button ref={thirdLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
@@ -261,17 +236,19 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                         </button>
                         {LetterToRender(transitionState.lettersGuessed[2])}
                     </div>
-                    : <button
+                    : <GuessBox
                         ref={thirdLetter}
-                        aria-label={'guess position 3'}
-                        className={currentGuess[2] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                        key='cg-l-3'
+                        position={2}
+                        hasValue={!!currentGuess[2]}
                         onMouseDown={() => setCurrentPosition(2)}
                     >
-                        <span className='text-white text-3xl font-extrabold'>
-                            {currentGuess[2] || ''}
-                        </span>
-                    </button>}
+                        <>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[2] || ''}
+                            </span>
+                            <ActiveBar active={currentPosition === 2} />
+                        </>
+                    </GuessBox>}
                 {transitionState ?
                     <div className='relative'>
                         <button ref={fourthLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
@@ -282,17 +259,19 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                         </button>
                         {LetterToRender(transitionState.lettersGuessed[3])}
                     </div>
-                    : <button
+                    : <GuessBox
                         ref={fourthLetter}
-                        aria-label={'guess position 4'}
-                        className={currentGuess[3] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                        key='cg-l-4'
+                        position={3}
+                        hasValue={!!currentGuess[3]}
                         onMouseDown={() => setCurrentPosition(3)}
                     >
-                        <span className='text-white text-3xl font-extrabold'>
-                            {currentGuess[3] || ''}
-                        </span>
-                    </button>}
+                        <>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[3] || ''}
+                            </span>
+                            <ActiveBar active={currentPosition === 3} />
+                        </>
+                    </GuessBox>}
                 {transitionState ?
                     <div className='relative'>
                         <button ref={fifthLetter} className={'flip absolute  grid place-items-center border-2 border-slate-500 w-14 h-14 md:w-16 md:h-16 bg-black'}
@@ -303,19 +282,32 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
                         </button>
                         {LetterToRender(transitionState.lettersGuessed[4])}
                     </div>
-                    : <button
+                    : <GuessBox
                         ref={fifthLetter}
-                        aria-label={'guess position 5'}
-                        className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
-                        key='cg-l-5'
+                        position={4}
+                        hasValue={!!currentGuess[4]}
                         onMouseDown={() => setCurrentPosition(4)}
                     >
-                        <span className='text-white text-3xl font-extrabold'>
-                            {currentGuess[4] || ''}
-                        </span>
-                    </button>}
+                        <>
+                            <span className='text-white text-3xl font-extrabold'>
+                                {currentGuess[4] || ''}
+                            </span>
+                            <ActiveBar active={currentPosition === 4} />
+                        </>
+                    </GuessBox>
+                }
             </div>
             {blanksToRender}
         </section>
     )
 })
+
+
+{/* <button
+                        ref={fifthLetter}
+                        aria-label={'guess position 5'}
+                        className={currentGuess[4] ? 'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black relative' : 'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black relative'}
+                        key='cg-l-5'
+                        onMouseDown={() => setCurrentPosition(4)}
+                    >
+                        </button> */}
