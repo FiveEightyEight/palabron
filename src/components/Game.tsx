@@ -315,22 +315,25 @@ export default function Game() {
     return (
         <>
             <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
-                <section className='text-center'>
+                <section className='flex justify-between text-center'>
+                    <div />
                     <div className='-mb-2 border-b-2 border-opacity-30 border-slate-400 pb-2 '>
                         <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
                         <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
+                    <div>
+                    </div>
                 </section>
                 <div className='grid place-content-center py-1'>
-                        <Guesses
-                            ref={guessContainerRef}
-                            guesses={guesses}
-                            currentGuess={currentGuess}
-                            transitionState={transitionState}
-                            currentPosition={currentPosition}
-                            setCurrentPosition={updateCurrentPosition}
-                        />
-                    </div>
+                    <Guesses
+                        ref={guessContainerRef}
+                        guesses={guesses}
+                        currentGuess={currentGuess}
+                        transitionState={transitionState}
+                        currentPosition={currentPosition}
+                        setCurrentPosition={updateCurrentPosition}
+                    />
+                </div>
                 <Keyboard
                     guessedLetters={guessedLetters}
                     onTap={onTap}
@@ -345,25 +348,25 @@ export default function Game() {
                     Palabra no existe
                 </p>
                 {gameOver && (
-                        <Modal ref={modalRef}>
-                            <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
-                                <h3 className="text-gray-50 text-center text-2xl font-bold pt-4"> Game Over! </h3>
-                                {revealWord ?
-                                    <p className='text-gray-50 text-center text-xl font-bold p-4'>La palabra fue <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span></p>
-                                    : <p className='text-gray-50 text-center text-xl font-extrabold p-4'>Descifraste <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span> 🎉</p>
-                                }
-                                <div className="flex justify-center p-4">
-                                    <button
-                                        className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
-                                        aria-label='Juega de nuevo'
-                                        onClick={playAgain}
-                                    >
-                                        Juega de Nuevo
-                                    </button>
-                                </div>
+                    <Modal ref={modalRef}>
+                        <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
+                            <h3 className="text-gray-50 text-center text-2xl font-bold pt-4"> Game Over! </h3>
+                            {revealWord ?
+                                <p className='text-gray-50 text-center text-xl font-bold p-4'>La palabra fue <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span></p>
+                                : <p className='text-gray-50 text-center text-xl font-extrabold p-4'>Descifraste <span className='text-yellow-400 font-extrabold'>{wordOfTheDay}</span> 🎉</p>
+                            }
+                            <div className="flex justify-center p-4">
+                                <button
+                                    className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
+                                    aria-label='Juega de nuevo'
+                                    onClick={playAgain}
+                                >
+                                    Juega de Nuevo
+                                </button>
                             </div>
-                        </Modal>
-                    )}
+                        </div>
+                    </Modal>
+                )}
             </div>\
         </>
     )
