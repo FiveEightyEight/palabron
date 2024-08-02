@@ -47,7 +47,14 @@ function LetterToRender({ letter, status }: LetterGuess) {
 }
 
 
-export default React.forwardRef(function Guesses({ guesses, currentGuess, setCurrentPosition, transitionState }: { guesses: Guess[], currentGuess: string[], setCurrentPosition: (n: number) => void, transitionState: any }, guessContainerRef: any) {
+type GuessesProps = {
+    guesses: Guess[],
+    currentGuess: string[],
+    setCurrentPosition: (n: number) => void,
+    transitionState: any
+}
+
+export default React.forwardRef(function Guesses({ guesses, currentGuess, setCurrentPosition, transitionState }: GuessesProps, guessContainerRef: any) {
 
     const firstLetter = React.useRef<HTMLButtonElement>(null);
     const secondLetter = React.useRef<HTMLButtonElement>(null);
@@ -122,6 +129,81 @@ export default React.forwardRef(function Guesses({ guesses, currentGuess, setCur
             </section>
         )
     }
+
+    type GuessBoxProps = {
+        value?: string;
+        active: boolean;
+        hasValue: boolean;
+        position: number;
+    }
+
+    const GuessBox = ({ active, hasValue, position, value }: GuessBoxProps, ref: any) => {
+        if (active && hasValue) {
+            return (
+                <button
+                    ref={ref}
+                    aria-label={'guess position ' + position}
+                    className={'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                    key={'cg-l-' + position}
+                    onMouseDown={() => setCurrentPosition(position)}
+                >
+                    <span className='text-white text-3xl font-extrabold'>
+                        {value || ''}
+                    </span>
+                </button>
+            )
+        }
+
+        if (active) {
+            // active, no value
+            return (
+                <button
+                    ref={ref}
+                    aria-label={'guess position ' + position}
+                    className={'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                    key={'cg-l-' + position}
+                    onMouseDown={() => setCurrentPosition(position)}
+                >
+                    <span className='text-white text-3xl font-extrabold'>
+                        {value || ''}
+                    </span>
+                </button>
+            )
+        }
+
+        if (hasValue) {
+            // not active, has value
+            return (
+                <button
+                    ref={ref}
+                    aria-label={'guess position ' + position}
+                    className={'flip-exit grid place-items-center border-2 border-slate-500 hover:border-slate-400 active:border-slate-400 focus:border-slate-400 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                    key={'cg-l-' + position}
+                    onMouseDown={() => setCurrentPosition(position)}
+                >
+                    <span className='text-white text-3xl font-extrabold'>
+                        {value || ''}
+                    </span>
+                </button>
+            )
+        }
+
+        // default not active and no value 
+        return (
+            <button
+                ref={ref}
+                aria-label={'guess position ' + position}
+                className={'flip-exit grid place-items-center border-2 hover:border-slate-500 active:border-slate-500 focus:border-slate-500 border-slate-800 w-14 h-14 md:w-16 md:h-16 bg-black'}
+                key={'cg-l-' + position}
+                onMouseDown={() => setCurrentPosition(position)}
+            >
+                <span className='text-white text-3xl font-extrabold'>
+                    {value || ''}
+                </span>
+            </button>
+        )
+    }
+
     return (
         <section className='relative flex flex-col py-2 gap-[.4rem]'>
             {guessesToRender}
