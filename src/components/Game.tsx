@@ -315,14 +315,15 @@ export default function Game() {
     return (
         <>
             <div className='flex flex-col justify-between pt-1 pb-2 md:py-5 h-[100dvh] w-[100dvw] bg-black'>
-                <section className='flex justify-between text-center'>
-                    <div />
-                    <div className='-mb-2 border-b-2 border-opacity-30 border-slate-400 pb-2 '>
+                <section className='flex justify-between text-center border-b-2 border-opacity-30 border-slate-400 pb-2 '>
+                    <div className='w-10 h-10'/>
+                    <div className='-mb-2 '>
                         <h1 className='text-gray-50 text-center text-xl font-bold'>PALABRÓN</h1>
                         <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
-                    <div>
-                    </div>
+                    <button aria-label='Instrucciones' className='grid place-content-center text-white w-10 h-10'>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24"><rect width="24" height="24" fill="none" /><g fill="none"><path d="M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035q-.016-.005-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427q-.004-.016-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093q.019.005.029-.008l.004-.014l-.034-.614q-.005-.019-.02-.022m-.715.002a.02.02 0 0 0-.027.006l-.006.014l-.034.614q.001.018.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z" /><path fill="currentColor" d="M12 2c5.523 0 10 4.477 10 10s-4.477 10-10 10S2 17.523 2 12S6.477 2 12 2m0 2a8 8 0 1 0 0 16a8 8 0 0 0 0-16m0 12a1 1 0 1 1 0 2a1 1 0 0 1 0-2m0-9.5a3.625 3.625 0 0 1 1.348 6.99a.8.8 0 0 0-.305.201c-.044.05-.051.114-.05.18L13 14a1 1 0 0 1-1.993.117L11 14v-.25c0-1.153.93-1.845 1.604-2.116a1.626 1.626 0 1 0-2.229-1.509a1 1 0 1 1-2 0A3.625 3.625 0 0 1 12 6.5" /></g></svg>
+                    </button>
                 </section>
                 <div className='grid place-content-center py-1'>
                     <Guesses
