@@ -4,6 +4,7 @@ import { useGSAP } from '@gsap/react';
 import Guesses from './Guesses';
 import Keyboard from './Keyboard';
 import Modal from './Modal';
+import HowToPlay from './HowToPlay';
 import { dictionary } from '../data';
 import { GREY, GREEN, YELLOW } from '../constants';
 import type { GameState, Guess, GuessedLetters } from '../types';
@@ -333,7 +334,7 @@ export default function Game() {
                         <span className='-mt-5 text-gray-300 text-center text-[.6rem] italic'>({packageJSON.version})</span>
                     </div>
                     <button
-                        aria-label='Instrucciones'
+                        aria-label='cómo jugar'
                         className='grid place-content-center text-white w-10 h-10'
                         onMouseDown={() => setShowInstructions(!showInstructions)}
                     >
@@ -392,20 +393,20 @@ export default function Game() {
                         onClose={() => setShowInstructions(!showInstructions)}
                     >
                         <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
-                            <h3 className="text-gray-50 text-center text-2xl font-bold pt-4">Como Jugar</h3>
-                            <div>
-                                <p>
-                                    Como jugar...
-                                </p>
-                            </div>
-                            <div className="flex justify-center p-4">
-                                <button
-                                    className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
-                                    aria-label='Juega de nuevo'
-                                    onMouseDown={() => setShowInstructions(!showInstructions)}
-                                >
-                                    Listo!
-                                </button>
+                            <h3 className="text-gray-50 text-center text-2xl font-bold pt-4">
+                                Cómo Jugar
+                            </h3>
+                            <div className="flex flex-col justify-between p-3">
+                                <HowToPlay />
+                                <div className='flex justify-center mt-1 -mb-2'>
+                                    <button
+                                        className='rounded-xl w-36 h-14 border-2 border-gray-400 bg-slate-700 active:bg-slate-900 focus:bg-slate-900 text-gray-50 text-nowrap font-extrabold'
+                                        aria-label='Juega de nuevo'
+                                        onMouseDown={() => setShowInstructions(!showInstructions)}
+                                    >
+                                        Listo!
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     </Modal>
