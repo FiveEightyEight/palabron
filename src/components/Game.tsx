@@ -25,7 +25,7 @@ export default function Game() {
     const [lastLetterSet, setLastLetterSet] = React.useState<boolean>(false);
     const [showInstructions, setShowInstructions] = React.useState<boolean>(false);
 
-    const modalRef = React.useRef<HTMLElement>(null)
+    const modalRef = React.useRef<HTMLButtonElement>(null)
     const guessContainerRef = React.useRef<HTMLDivElement>(null);
     const toastRef = React.useRef<HTMLParagraphElement>(null);
 
@@ -37,11 +37,12 @@ export default function Game() {
             const instructionsSeen: boolean = JSON.parse(localStorage.getItem('instructions') || 'null');
             if (!instructionsSeen) {
                 setShowInstructions(true);
+                localStorage.setItem('instructions', JSON.stringify(true));
             }
         } catch (err) {
             console.log('err', err)
         }
-        
+
         if (result) {
             /*
                 "2024-07-26": {
@@ -363,7 +364,10 @@ export default function Game() {
                     Palabra no existe
                 </p>
                 {gameOver && (
-                    <Modal ref={modalRef}>
+                    <Modal
+                        ref={modalRef}
+                        onClose={playAgain}
+                    >
                         <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
                             <h3 className="text-gray-50 text-center text-2xl font-bold pt-4"> Game Over! </h3>
                             {revealWord ?
@@ -383,7 +387,10 @@ export default function Game() {
                     </Modal>
                 )}
                 {showInstructions && (
-                    <Modal ref={modalRef}>
+                    <Modal
+                        ref={modalRef}
+                        onClose={() => setShowInstructions(!showInstructions)}
+                    >
                         <div className="bg-black bg-t border-4 bg-opacity-85 border-opacity-50 border-slate-500 p-4 rounded-2xl h-auto w-auto place-content-center">
                             <h3 className="text-gray-50 text-center text-2xl font-bold pt-4">Como Jugar</h3>
                             <div>
