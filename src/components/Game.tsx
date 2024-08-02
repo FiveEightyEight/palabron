@@ -327,6 +327,7 @@ export default function Game() {
                             guesses={guesses}
                             currentGuess={currentGuess}
                             transitionState={transitionState}
+                            currentPosition={currentPosition}
                             setCurrentPosition={updateCurrentPosition}
                         />
                     </div>
